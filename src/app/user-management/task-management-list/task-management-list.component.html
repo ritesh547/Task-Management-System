@@ -1,0 +1,54 @@
+<div class="task-management">
+    <!-- <h5 style="align-items: center;">Task Management</h5> -->
+    <p style="text-align: center;"> <b> Task List</b></p>
+
+    <!-- Create Task Button -->
+    <div class="container-fluid">
+        <button (click)="createTask()" class="btn btn-primary" style="float: right;" [disabled]="isDisbled">Add New
+            Task</button>
+    </div>
+
+    <!-- Task List -->
+
+    <table class="table container-fluid">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned User</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of tasks; track item) {
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{item.assignedUserName}}</td>
+                <td>{{ item.priority }}</td>
+                <td>{{ item.dueDate }}</td>
+                @if (isRole=='admin') {
+                <td> {{ item.status }}</td>
+                } @else{
+                <select (change)="onStatusChange($event)">
+                    @for (status of statusOptions; track status){
+                    <option [value]="status">{{ status }}</option>
+                    }
+                </select>
+                }
+                <td> @if (isRole=='admin'){
+                    <i class="fa fas fa-edit" (click)="editTask(item)"></i>
+                    <i class="fa fa-regular fa-trash ms-2" (click)="deleteTask(item.id)"></i>
+                    }@else {
+                    <button [disabled]="!isDisbled" class="btn btn-danger ms-1"
+                        (click)="updateStatus(item)">updateStatus</button>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,31 @@
+<!-- <h5>User Management</h5> -->
+<div class="container-fluid">
+    <p style="text-align: center;"> <b> Users List</b></p>
+
+    <button class="btn btn-primary" [disabled]="isDisbled" (click)="createUser()" style="float: right;">Add New
+        User</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of users; track item) {
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.role}}</td>
+            <td>
+                <i class="fa fas fa-edit" (click)="editUser(item)"></i>
+                <i class="fa fa-regular fa-trash ms-2" (click)="deleteUser(item.id)"></i>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

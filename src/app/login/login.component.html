@@ -1,0 +1,54 @@
+<div class="col-md-6 mt-5 wrapper fadeInDown">
+    <div id="formContent">
+        <div class="card">
+            <h4 class="card-header">Login Form</h4>
+            <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <!-- <label for="email">Email</label> -->
+                        <input type="text" placeholder="Email" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['required']">Email is required</div>
+                            <div *ngIf="f['email'].errors['pattern']">Email should be valid</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- <label for="password">Password</label> -->
+                        <input type="password" placeholder="Password" formControlName="password" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                            <div *ngIf="f['password'].errors['required']">Password is required</div>
+                            <div *ngIf="f['password'].errors['pattern']">Password should be minimum 8 charaters with
+                                uppercase, number & special charater</div>
+                        </div>
+                    </div>
+                    <input type="submit" class="fadeIn fourth" value="Log In">
+                    <!-- <button type="submit" class="ml-2 btn btn-primary mt-1 fadeIn fourth">Login</button> -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="wrapper fadeInDown">
+    <div id="formContent">
+        <h2 class="active"> Sign In </h2>
+        <h2 class="inactive underlineHover">Sign Up </h2>
+
+        <div class="fadeIn first">
+            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+        </div>
+        <form>
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In">
+            
+        </form>
+        <div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>
+
+    </div>
+</div> -->

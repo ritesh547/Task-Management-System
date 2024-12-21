@@ -1,0 +1,27 @@
+/* Custom styles for active link */
+.navbar-nav .nav-item .active {
+    background-color: #343a40; /* Dark background */
+    color: #fff !important; /* White text color */
+  }
+  
+  .navbar-nav .nav-item .nav-link.active {
+    font-weight: bold; /* Optional: Makes the active link bold */
+  }
+  
+  /* Optional: Change text color when hovering over active link */
+  .navbar-nav .nav-item .active:hover {
+    background-color: #495057; /* Slightly lighter dark background on hover */
+    color: #fff; /* Keep the text white */
+  }
+  
+
+  /* Add this to your styles.css or component CSS */
+.navbar-nav.ml-auto {
+  margin-left: auto !important; /* Ensure it's floating to the right */
+}
+
+/* Add this CSS to your global styles (styles.css) */
+.active-link {
+  font-weight: bold; /* Make the active link text bold */
+  color: #007bff;    /* Optionally, you can also change the color to make it more noticeable */
+}

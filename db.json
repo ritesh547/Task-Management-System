@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "name": "Pawan",
+      "email": "pawan@gmail.com",
+      "role": "User",
+      "status": "Inactive",
+      "id": "b2dd"
+    },
+    {
+      "id": "08a2",
+      "name": "Ram",
+      "email": "ram@gmail.com",
+      "role": "Admin",
+      "status": "Active"
+    }
+  ],
+  "tasks": [
+    {
+      "assignedUserID": "b2dd",
+      "title": "dummy task",
+      "description": "This is the first task",
+      "assignedUserName": "Pawan",
+      "priority": "Medium",
+      "dueDate": "2024-12-19",
+      "status": "In Progress",
+      "id": "1ab8"
+    }
+  ]
+}

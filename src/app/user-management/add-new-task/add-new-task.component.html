@@ -1,0 +1,80 @@
+<form [formGroup]="taskForm" (ngSubmit)="submit()" class="container mt-5 p-4 border rounded shadow-lg">
+  <!-- Title Field -->
+  <div class="form-group mb-3">
+    <label for="exampleInputTitle" class="form-label">Task Title</label>
+    <input type="text" [ngClass]="{'is-invalid': submitted && f['title'].errors}" formControlName="title"
+      class="form-control" id="exampleInputTitle" placeholder="Enter Task Title">
+    <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+      <div *ngIf="f['title'].errors['required']">Title is required</div>
+    </div>
+  </div>
+
+  <!-- Description Field -->
+  <div class="form-group mb-3">
+    <label for="exampleInputDescription" class="form-label">Description</label>
+    <input type="text" [ngClass]="{'is-invalid': submitted && f['description'].errors}" formControlName="description"
+      class="form-control" id="exampleInputDescription" placeholder="Enter Task Description">
+    <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+      <div *ngIf="f['description'].errors['required']">Description is required</div>
+    </div>
+  </div>
+
+  <!-- Assigned User Field -->
+  <div class="form-group mb-3">
+    <label for="assignedUser" class="form-label">Assigned User</label>
+    <select [ngClass]="{'is-invalid': submitted && f['assignedUser'].errors}" formControlName="assignedUserID"
+      class="form-control" id="assignedUser">
+      <option value="">Select User</option>
+      <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+    </select>
+    <div *ngIf="submitted && f['assignedUser'].errors" class="invalid-feedback">
+      <div *ngIf="f['assignedUser'].errors['required']">Assigned User is required</div>
+    </div>
+  </div>
+
+  <!-- Priority Field -->
+  <div class="form-group mb-3">
+    <label for="priority" class="form-label">Priority</label>
+    <select [ngClass]="{'is-invalid': submitted && f['priority'].errors}" formControlName="priority"
+      class="form-control" id="priority">
+      <option value="">Select Priority</option>
+      <option value="Low">Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
+    <div *ngIf="submitted && f['priority'].errors" class="invalid-feedback">
+      <div *ngIf="f['priority'].errors['required']">Priority is required</div>
+    </div>
+  </div>
+
+  <!-- Due Date Field -->
+  <div class="form-group mb-3">
+    <label for="dueDate" class="form-label">Due Date</label>
+    <input type="date" [ngClass]="{'is-invalid': submitted && f['dueDate'].errors}" formControlName="dueDate"
+      class="form-control" id="dueDate">
+    <div *ngIf="submitted && f['dueDate'].errors" class="invalid-feedback">
+      <div *ngIf="f['dueDate'].errors['required']">Due Date is required</div>
+    </div>
+  </div>
+
+  <!-- Task Status Field -->
+  <div class="form-group mb-3">
+    <label for="status" class="form-label">Task Status</label>
+    <select [ngClass]="{'is-invalid': submitted && f['status'].errors}" formControlName="status"
+      class="form-control" id="status">
+      <option value="">Select Status</option>
+      <option value="Pending">Pending</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Completed">Completed</option>
+    </select>
+    <div *ngIf="submitted && f['status'].errors" class="invalid-feedback">
+      <div *ngIf="f['status'].errors['required']">Status is required</div>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block">Create Task</button>
+    <button type="button" class="btn btn-secondary ms-1 btn-block" (click)="onCancel()">Cancel</button>
+  </div>
+</form>

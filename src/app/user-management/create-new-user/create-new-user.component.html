@@ -1,0 +1,61 @@
+<form [formGroup]="userForm" (ngSubmit)="submit()" class="container mt-5 p-4 border rounded shadow-lg">
+    <!-- Name Field -->
+    <div class="form-group mb-3">
+        <label for="exampleInputName" class="form-label">Name</label>
+        <input type="text" [ngClass]="{'is-invalid': submitted && f['name'].errors}" formControlName="name"
+            class="form-control" id="exampleInputName" placeholder="Enter Name">
+        <!-- Validation Error Messages -->
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+            <div *ngIf="f['name'].errors['required']">Name is required</div>
+            <div *ngIf="f['name'].errors['pattern']">Name should be valid (only letters and spaces)</div>
+        </div>
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" [ngClass]="{'is-invalid': submitted && f['email'].errors}" formControlName="email"
+            class="form-control" id="exampleInputEmail1" placeholder="Enter Email">
+        <!-- Validation Error Messages -->
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+            <div *ngIf="f['email'].errors['required']">Email is required</div>
+            <div *ngIf="f['email'].errors['email']">Invalid email format</div>
+        </div>
+    </div>
+
+    <!-- Role Field -->
+    <div class="form-group mb-3">
+        <label for="exampleInputRole" class="form-label">Role</label>
+        <select [ngClass]="{'is-invalid': submitted && f['role'].errors}" formControlName="role" class="form-control"
+            id="exampleInputRole">
+            <option value="">Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+        </select>
+        <!-- Validation Error Messages -->
+        <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+            <div *ngIf="f['role'].errors['required']">Role is required</div>
+        </div>
+    </div>
+
+    <!-- Status Field -->
+    <div class="form-group mb-3">
+        <label for="exampleInputStatus" class="form-label">Status</label>
+        <select [ngClass]="{'is-invalid': submitted && f['status'].errors}" formControlName="status"
+            class="form-control" id="exampleInputStatus">
+            <option value="">Select Status</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+        <!-- Validation Error Messages -->
+        <div *ngIf="submitted && f['status'].errors" class="invalid-feedback">
+            <div *ngIf="f['status'].errors['required']">Status is required</div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">{{isId ? 'update':'create'}} user</button>
+        <button type="button" class="btn btn-primary ms-1 btn-block" (click)="onCancel()">Cancel</button>
+    </div>
+</form>
