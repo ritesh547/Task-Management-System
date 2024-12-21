@@ -12,7 +12,9 @@
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Role</th>
+            @if (isRole=='admin') {
             <th scope="col">Action</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -21,10 +23,12 @@
             <td>{{item.name}}</td>
             <td>{{item.email}}</td>
             <td>{{item.role}}</td>
+            @if (isRole=='admin') {
             <td>
                 <i class="fa fas fa-edit" (click)="editUser(item)"></i>
                 <i class="fa fa-regular fa-trash ms-2" (click)="deleteUser(item.id)"></i>
             </td>
+            }
         </tr>
         }
     </tbody>

@@ -38,7 +38,7 @@
                 <td> {{ item.status }}</td>
                 } @else{
                 <select (change)="onStatusChange($event)">
-                    <option>select status</option>
+                    <option disabled="true">select status</option>
                     @for (status of statusOptions; track status){
                     <option [value]="status">{{ status }}</option>
                     }

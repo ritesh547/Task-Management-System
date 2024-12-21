@@ -4,7 +4,7 @@
       "name": "Pawan",
       "email": "pawan@gmail.com",
       "role": "User",
-      "status": "Inactive",
+      "status": "Active",
       "id": "b2dd"
     },
     {
@@ -23,7 +23,7 @@
       "assignedUserName": "Pawan",
       "priority": "Medium",
       "dueDate": "2024-12-19",
-      "status": "In Progress",
+      "status": "Completed",
       "id": "1ab8"
     }
   ]

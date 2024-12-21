@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   public submitted: boolean = false;
   public emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   public passwordRegex: RegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{8,20}$/;
-  filteredUsers: any;
-  emailFilter: string = '';  // Holds the value for filtering by email
-  roleFilter: string = '';
+  public filteredUsers: any;
+  public emailFilter: string = '';  // Holds the value for filtering by email
+  public roleFilter: string = '';
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
@@ -56,14 +56,19 @@ export class LoginComponent implements OnInit {
           return matchesEmail && matchesRole;
         });
         if (this.filteredUsers.length > 0) {
-          const firstUserRole = this.filteredUsers[0].role.toLowerCase();
-          localStorage.setItem('userDetails', JSON.stringify(
-            {
-              userId: this.filteredUsers[0].id,
-              role: firstUserRole
-            }
-          ));
-          this.router.navigate(['user'])
+          if (this.filteredUsers[0].status == 'Active') {
+            const firstUserRole = this.filteredUsers[0].role.toLowerCase();
+            localStorage.setItem('userDetails', JSON.stringify(
+              {
+                userId: this.filteredUsers[0].id,
+                role: firstUserRole
+              }
+            ));
+            this.router.navigate(['user']);
+          } else {
+            alert('user is inactive')
+          }
+
         }
         else {
           alert('invalid email or password')

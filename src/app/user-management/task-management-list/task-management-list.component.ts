@@ -93,6 +93,7 @@ export class TaskManagementListComponent implements OnInit {
     }
     this.taskService.updateTask(item.id, payload).subscribe((res: any) => {
       this.router.navigate(['user/dashboard/task']);
+      this.loadTasks();
     })
 
   }
