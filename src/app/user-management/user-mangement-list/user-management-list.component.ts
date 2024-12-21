@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
   styleUrl: './user-management-list.component.css'
 })
 export class UserManagementListComponent implements OnInit {
-  users: any[] = [];
-  useruserDetailObject: any | undefined;
-  isUser: string = '';
-  isRole: any;
-  isDisbled: boolean = false;
-  constructor(private userService: UserService, private router: Router) { }
+  public users: any[] = [];
+  public useruserDetailObject: any | undefined;
+  public isUser: string = '';
+  public isRole: any;
+  public isDisbled: boolean = false;
+  constructor(
+    private readonly userService: UserService,
+    private readonly router: Router) { }
 
   ngOnInit(): void {
     const userDetails = localStorage.getItem('userDetails');
@@ -27,7 +29,7 @@ export class UserManagementListComponent implements OnInit {
     this.loadUsers();
   }
 
-  loadUsers(): void {
+  public loadUsers(): void {
     this.userService.getUsers().subscribe((users: any[]) => {
       if (this.isRole == 'admin') {
         this.isDisbled = false;
@@ -39,15 +41,15 @@ export class UserManagementListComponent implements OnInit {
     });
   }
 
-  createUser(): void {
+  public createUser(): void {
     this.router.navigate(['user/dashboard/add-user']);
   }
 
-  editUser(user: any): void {
+  public editUser(user: any): void {
     this.router.navigate(['user/dashboard/add-user', user.id]);
   }
 
-  deleteUser(userId: number): void {
+  public deleteUser(userId: number): void {
     this.userService.deleteUser(userId).subscribe(() => {
       this.loadUsers();
     });

@@ -11,17 +11,19 @@ import { UserService } from '../services/user.service';
   styleUrl: './task-management-list.component.css'
 })
 export class TaskManagementListComponent implements OnInit {
-  tasks: any[] = [];
-  isDisbled: boolean = false;
-  isShow: boolean = false;
-  isUser: boolean = false;
-  isRole: any;
-  selectedStatus: string = '';
-  statusOptions = ['Pending', 'In Progress', 'Completed'
-  ]
-  useruserDetailObject: any | undefined;
-  constructor(private taskService: TaskService, private router: Router,
-    private userService: UserService
+  public tasks: any[] = [];
+  public isDisbled: boolean = false;
+  public isShow: boolean = false;
+  public isUser: boolean = false;
+  public isRole: any;
+  public selectedStatus: string = '';
+  public statusOptions = ['Pending', 'In Progress', 'Completed'];
+  public useruserDetailObject: any | undefined;
+
+  constructor(
+    private readonly taskService: TaskService, 
+    private readonly router: Router,
+    private readonly userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -34,17 +36,17 @@ export class TaskManagementListComponent implements OnInit {
     this.loadUsers();
   }
 
-  onStatusChange(e: any) {
+  public onStatusChange(e: any) {
     this.selectedStatus = e.target.value;
   }
 
-  loadUsers(): void {
+  public loadUsers(): void {
     this.userService.getUsers().subscribe((users: any[]) => {
-      console.log('users', users);
+      // console.log('users', users);
     });
   }
 
-  loadTasks(): void {
+  public loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks: any[]) => {
       this.tasks = tasks;
       if (this.isRole == 'admin') {
@@ -52,27 +54,24 @@ export class TaskManagementListComponent implements OnInit {
         this.isShow = false;
         this.tasks = tasks;
       } else {
-        debugger
         this.isDisbled = true;
         this.isShow = true;
         this.isUser = true;
-        debugger
-        console.log('this.tasks', this.tasks);
         this.tasks = tasks.filter((item: any, i: any) => this.useruserDetailObject.userId == item.assignedUserID);
       }
 
     });
   }
 
-  createTask(): void {
+  public createTask(): void {
     this.router.navigate(['user/dashboard/add-new-task']);
   }
 
-  editTask(item: any): void {
+  public editTask(item: any): void {
     this.router.navigate(['user/dashboard/add-new-task', item.id]);
   }
 
-  deleteTask(taskId: number): void {
+  public deleteTask(taskId: number): void {
     const confirmation = window.confirm('Are you sure you want to remove?');
     if (confirmation) {
       this.taskService.deleteTask(taskId).subscribe(() => {
@@ -82,8 +81,7 @@ export class TaskManagementListComponent implements OnInit {
 
   }
 
-  updateStatus(item: any) {
-    debugger
+  public updateStatus(item: any) {
     let payload = {
       assignedUserID: this.useruserDetailObject.userId,
       title: item.title,
@@ -91,9 +89,8 @@ export class TaskManagementListComponent implements OnInit {
       assignedUserName: item.assignedUserName,
       priority: item.priority,
       dueDate: item.dueDate,
-      status: this.selectedStatus // Initial status
+      status: this.selectedStatus
     }
-    debugger
     this.taskService.updateTask(item.id, payload).subscribe((res: any) => {
       this.router.navigate(['user/dashboard/task']);
     })

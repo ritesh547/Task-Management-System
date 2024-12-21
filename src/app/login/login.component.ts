@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
   emailFilter: string = '';  // Holds the value for filtering by email
   roleFilter: string = '';
   constructor(
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private userService: UserService,
-    private renderer: Renderer2
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly renderer: Renderer2
   ) {
   }
 

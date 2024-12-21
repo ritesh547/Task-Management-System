@@ -19,7 +19,11 @@
                 <th>Priority</th>
                 <th>Due Date</th>
                 <th>Status</th>
+                @if (isRole!='admin') {
+                <th>Current Status</th>
+                }
                 <th>Actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -34,17 +38,21 @@
                 <td> {{ item.status }}</td>
                 } @else{
                 <select (change)="onStatusChange($event)">
+                    <option>select status</option>
                     @for (status of statusOptions; track status){
                     <option [value]="status">{{ status }}</option>
                     }
                 </select>
                 }
+                @if (isRole!='admin') {
+                <td>{{item.status}}</td>
+                }
                 <td> @if (isRole=='admin'){
                     <i class="fa fas fa-edit" (click)="editTask(item)"></i>
                     <i class="fa fa-regular fa-trash ms-2" (click)="deleteTask(item.id)"></i>
                     }@else {
-                    <button [disabled]="!isDisbled" class="btn btn-danger ms-1"
-                        (click)="updateStatus(item)">updateStatus</button>
+                    <button [disabled]="!isDisbled" class="btn btn-info ms-1" (click)="updateStatus(item)">Update
+                        Status</button>
                     }
                 </td>
             </tr>

@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   logout() {
     const confirmation = window.confirm('Are you sure you want to logout?');

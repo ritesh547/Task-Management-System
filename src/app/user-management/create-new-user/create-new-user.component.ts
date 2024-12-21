@@ -13,12 +13,16 @@ import { UserService } from '../services/user.service';
   styleUrl: './create-new-user.component.css'
 })
 export class CreateNewUserComponent implements OnInit {
-  userForm: any;
-  isId: any;
-  submitted: boolean = false;
-  constructor(private fb: FormBuilder, private userServices: UserService,
-    private router: Router, private ac: ActivatedRoute
+  public userForm: any;
+  public isId: any;
+  public submitted: boolean = false;
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly userServices: UserService,
+    private readonly router: Router,
+    private readonly ac: ActivatedRoute
   ) { }
+  
   ngOnInit(): void {
     this.userForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('^[A-Za-z ]*$')]],  // Name validation (letters and spaces only)
@@ -44,11 +48,11 @@ export class CreateNewUserComponent implements OnInit {
     return this.userForm.controls
   }
 
-  onCancel() {
+  public onCancel() {
     this.router.navigate(['user/dashboard/user-list']);
   }
 
-  submit() {
+  public submit() {
     this.submitted = true;
     if (this.userForm.invalid) {
       return

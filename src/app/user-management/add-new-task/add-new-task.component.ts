@@ -14,14 +14,16 @@ import { TaskService } from '../services/task.service';
   styleUrl: './add-new-task.component.css'
 })
 export class AddNewTaskComponent implements OnInit {
-  users: any[] = [];
-  taskForm: any;
-  submitted = false;
-  isId: any;
-  constructor(private fb: FormBuilder, private router: Router,
-    private userService: UserService,
-    private taskService: TaskService,
-    private ac: ActivatedRoute) { }
+  public users: any[] = [];
+  public taskForm: any;
+  public submitted = false;
+  public isId: any;
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly taskService: TaskService,
+    private readonly ac: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.taskForm = this.fb.group({
@@ -30,7 +32,7 @@ export class AddNewTaskComponent implements OnInit {
       assignedUserID: ['', Validators.required],  // User ID, this can be a select dropdown
       priority: ['', Validators.required],
       dueDate: ['', Validators.required],
-    status: ['', Validators.required]
+      status: ['', Validators.required]
     });
 
     this.isId = this.ac.snapshot.paramMap.get('id');
@@ -49,7 +51,7 @@ export class AddNewTaskComponent implements OnInit {
     this.loadUsers();
   }
 
-  loadUsers(): void {
+  public loadUsers(): void {
     this.userService.getUsers().subscribe((users: any[]) => {
       this.users = users.filter((item: any, i: any) => item.role.toLowerCase() == 'user');
     });
@@ -59,25 +61,22 @@ export class AddNewTaskComponent implements OnInit {
     return this.taskForm.controls;
   }
 
-  onCancel() {
+  public onCancel() {
     this.router.navigate(['user/dashboard/task']);
   }
 
-  submit() {
+  public submit() {
     this.submitted = true;
     if (this.f.invalid) {
       return
     } else {
       if (this.isId != null) {
-        debugger
         const assignedUserName = this.users.find(user => user.id == this.taskForm.value.assignedUserID);
         this.taskForm.value.assignedUserName = assignedUserName.name;
-        debugger
         this.taskService.updateTask(this.isId, this.taskForm.value).subscribe((res: any) => {
           this.router.navigate(['user/dashboard/task']);
         })
       } else {
-        debugger
         const assignedUserName = this.users.find(user => user.id == this.taskForm.value.assignedUserID);
         this.taskForm.value.assignedUserName = assignedUserName.name;
         this.taskService.addTask(this.taskForm.value).subscribe((res: any) => {
