@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-user-management-list',
@@ -50,8 +50,26 @@ export class UserManagementListComponent implements OnInit {
   }
 
   public deleteUser(userId: number): void {
-    this.userService.deleteUser(userId).subscribe(() => {
-      this.loadUsers();
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userService.deleteUser(userId).subscribe(() => {
+          this.loadUsers();
+        });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
     });
+
   }
 }

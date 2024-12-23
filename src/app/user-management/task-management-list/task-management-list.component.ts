@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-management-list',
@@ -21,7 +22,7 @@ export class TaskManagementListComponent implements OnInit {
   public useruserDetailObject: any | undefined;
 
   constructor(
-    private readonly taskService: TaskService, 
+    private readonly taskService: TaskService,
     private readonly router: Router,
     private readonly userService: UserService
   ) { }
@@ -72,13 +73,26 @@ export class TaskManagementListComponent implements OnInit {
   }
 
   public deleteTask(taskId: number): void {
-    const confirmation = window.confirm('Are you sure you want to remove?');
-    if (confirmation) {
-      this.taskService.deleteTask(taskId).subscribe(() => {
-        this.loadTasks();
-      });
-    }
-
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.taskService.deleteTask(taskId).subscribe(() => {
+          this.loadTasks();
+        });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success"
+        });
+      }
+    });
   }
 
   public updateStatus(item: any) {
