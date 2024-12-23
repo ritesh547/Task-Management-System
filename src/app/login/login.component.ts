@@ -29,10 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
-      password: ['', [Validators.required]]
-    });
+    this.formInIt();
     const token = localStorage.getItem('userDetails');
     const user = JSON.parse(token!);
     if (user) {
@@ -40,6 +37,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  public formInIt(): void {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
+      password: ['', [Validators.required]]
+    });
+  }
+  
   get f() {
     return this.loginForm.controls;
   }

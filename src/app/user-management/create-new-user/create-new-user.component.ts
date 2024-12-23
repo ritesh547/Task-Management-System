@@ -22,26 +22,32 @@ export class CreateNewUserComponent implements OnInit {
     private readonly router: Router,
     private readonly ac: ActivatedRoute
   ) { }
-  
+
   ngOnInit(): void {
+    this.formInIt();
+    this.isId = this.ac.snapshot.paramMap.get('id');
+    if (this.isId) {
+      this.getUserById();
+    }
+  }
+
+  public formInIt(): void {
     this.userForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('^[A-Za-z ]*$')]],  // Name validation (letters and spaces only)
       email: ['', [Validators.required, Validators.email]],                    // Email validation
       role: ['', [Validators.required]],                                         // Role validation
       status: ['', [Validators.required]]
     })
-    this.isId = this.ac.snapshot.paramMap.get('id');
-    if (this.isId) {
-      this.userServices.getUserById(this.isId).subscribe((res: any) => {
-        this.userForm.setValue({
-          name: res.name,
-          email: res.email,
-          role: res.role,
-          status: res.status,
-        })
+  }
+  public getUserById(): void {
+    this.userServices.getUserById(this.isId).subscribe((res: any) => {
+      this.userForm.setValue({
+        name: res.name,
+        email: res.email,
+        role: res.role,
+        status: res.status,
       })
-
-    }
+    })
   }
 
   get f() {

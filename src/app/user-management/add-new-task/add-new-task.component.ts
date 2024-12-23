@@ -18,6 +18,7 @@ export class AddNewTaskComponent implements OnInit {
   public taskForm: any;
   public submitted = false;
   public isId: any;
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly router: Router,
@@ -26,15 +27,7 @@ export class AddNewTaskComponent implements OnInit {
     private readonly ac: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.taskForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      assignedUserID: ['', Validators.required],  // User ID, this can be a select dropdown
-      priority: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      status: ['', Validators.required]
-    });
-
+    this.formInIt();
     this.isId = this.ac.snapshot.paramMap.get('id');
     if (this.isId) {
       this.taskService.getTaskById(this.isId).subscribe((res: any) => {
@@ -51,6 +44,17 @@ export class AddNewTaskComponent implements OnInit {
     this.loadUsers();
   }
 
+  public formInIt(): void {
+    this.taskForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      assignedUserID: ['', Validators.required],  // User ID, this can be a select dropdown
+      priority: ['', Validators.required],
+      dueDate: ['', Validators.required],
+      status: ['', Validators.required]
+    });
+  }
+
   public loadUsers(): void {
     this.userService.getUsers().subscribe((users: any[]) => {
       this.users = users.filter((item: any, i: any) => item.role.toLowerCase() == 'user');
@@ -61,7 +65,7 @@ export class AddNewTaskComponent implements OnInit {
     return this.taskForm.controls;
   }
 
-  public onCancel() {
+  public onCancel(): void {
     this.router.navigate(['user/dashboard/task']);
   }
 
