@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
-    private readonly userService: UserService,
-    private readonly renderer: Renderer2
+    private readonly userService: UserService 
   ) {
   }
 
