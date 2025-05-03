@@ -8,6 +8,6 @@ export const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule)
   },
-  { path: '**', redirectTo: '/login' } 
+  { path: '**', redirectTo: '/login' }
 ];
 
